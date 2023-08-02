@@ -1,0 +1,15 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* WRAPPER */
+
+  section.wrapper {
+    margin: 0 auto;
+    width: 1024px;
+    height: 1150px;
+    background-color: #fff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  }
