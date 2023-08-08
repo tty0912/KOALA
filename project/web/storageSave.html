@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title></title>
+        <meta charset="UTF-8"/>
+        <script>
+        /*
+            localstorage : 브라우저가 제공하는 영구 저장소 객체
+                - window 객체가 제공하는 속성
+                - Key 와 Value의 쌍 형태로 데이터 저장
+                - Key 값은 문자열로 반드시 고유하여야 한다.
+                - Value 값은 문자열로 중복 값을 허용한다.
+
+                Key  |   Value
+
+
+                localStorage.setItem(key, value)  => 스토리지에 새로운 항목의 값을 저장하거나 기존의 값을 변경
+                localStorage.getItem(key)         => 스토리지에서 key에 해당하는 value 값을 문자열로 반환
+                localStorage.removeItem(key)      => 스토리지에서 key에 해당하는 항목을 제거한다.
+                localStorage.clear()              => 스토리지의 모든 항목을 제거한다.
+        */
+        let name, age;
+
+        function boardHandler(){
+            if(JSON.parse(localStorage.getItem('board'))){
+                board = JSON.parse(localStorage.getItem('board'));
+            }
+            else board = [];
+        }
+
+
+        function saveHandler(){
+            // alert(name.value + ' : ' + age.value + ' : ' + male.checked + ' : ' + female.checked);
+            boardPost = {
+                'name' : name.value ,
+                'age': age.value
+            }
+            
+            board.push(boardPost);
+
+            localStorage.setItem('board', JSON.stringify(board)); 
+
+            document.querySelector('#test').innerHTML = '';
+
+            for(var i = 0; i < JSON.parse(localStorage.getItem('board')).length; i++){
+                
+                
+                document.querySelector('#test').innerHTML += '<li>이름: ' + JSON.parse(localStorage.getItem('board'))[i].name + 
+                                    ', 나이: ' + JSON.parse(localStorage.getItem('board'))[i].age + '</li>';
+            }
+
+            location.href = 'search.html'
+
+        }
+
+        function clearHandler(){
+            localStorage.clear();
+            board = [];
+            document.querySelector('#test').innerHTML = '';
+        }
+
+        function init(){
+            name = document.querySelector('#name');
+            age = document.querySelector('#age');
+            boardHandler();
+        
+
+            document.querySelector('#save').addEventListener('click', saveHandler);
+            document.querySelector('#clear').addEventListener('click', clearHandler);
+        }
+
+        window.addEventListener('load', init); 
+        </script>
+
+    </head>
+    
+    <body>
+        <h1>사용자 정보</h1>
+        <hr />
+
+        <label for="name">이름</label>
+        <input type="text" id="name" />
+        <label for="age">나이</label>
+        <input type="number" id="age" min="10" max="100" step="1" />
+        <hr />
+        <button id="save">저장</button>
+        <button id="clear">clear!</button>
+        <hr />
+        <ul id="test"></ul>
+    </body>
+</html>
