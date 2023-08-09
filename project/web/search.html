@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title></title>
+        <meta charset="UTF-8"/>
+        <script>
+
+        let searchText;
+
+        function searchHandler(){
+            localBoard = JSON.parse(localStorage.getItem('board'));
+
+            document.querySelector('#test').innerHTML = '';
+
+            for(var i = 0; i < localBoard.length; i++){
+                let result = localBoard[i].name;
+                if(result.indexOf(searchText.value) >= 0){
+                    document.querySelector('#test').innerHTML += '<li>이름: ' + JSON.parse(localStorage.getItem('board'))[i].name + 
+                                    ', 나이: ' + JSON.parse(localStorage.getItem('board'))[i].age + '</li>';
+                }
+            }
+        }
+        
+        function init(){
+            searchText = document.querySelector('#searchText')
+            document.querySelector('#search').addEventListener('click', searchHandler)  
+        }
+
+        window.addEventListener('load', init); 
+        </script>
+
+    </head>
+    
+    <body>
+        <h1>검색어를 입력하세요!</h1>
+        <hr />
+        <label for="searchText">검색어 입력</label>
+        <input type="text" id="searchText" />
+        <button id="search">검색</button>
+        <hr />
+        <ul id="test"></ul>
+    </body>
+</html>
